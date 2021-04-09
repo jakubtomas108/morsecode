@@ -1,3 +1,5 @@
+const { readFileSync } = require("fs");
+
 const morseCode = {
   ".-": "a",
   "-...": "b",
@@ -31,13 +33,17 @@ const morseCode = {
   "-.--.-": ")",
   "-.-.-.": ';',
   ".-..-.": "\""
-  
 };
 
-const code = "-.-. --- -. ... --- .-.. . .-.-.-. .-.. --- --. --... .-..-. .- .... --- .--- .-..-. -.--.- -.-.-."
+const code = readFileSync(`${process.argv[2]}`, "utf8") 
 
-const translateMorseCode = (code) => {
-  return code.split(" ").map(key => morseCode[key]).join("")
+if (code) {
+  const translateMorseCode = (code) => {
+    return code.split(" ").map(key => morseCode[key]).join("")
+  }
+  
+  eval(translateMorseCode(code))
+} else {
+  console.log("Wrong file")
 }
 
-eval(translateMorseCode(code))
